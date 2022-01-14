@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+
+    <div id="container" >
+
+
+    </div>
+    
+    <div id="display" >
+        <div id="secoundparent">
+
+        </div>
+
+    </div>
+
+<script>
+
+// global scope hoisting
+    let apistore;
+
+    let url = `https://run.mocky.io/v3/4a8b3706-4c59-494a-a457-c91ec6914b93?fbclid=IwAR1mOVHF-Zu2jzqxOrkJitBZ8-Zz6aQuK7wYMoYGTe907ND2lrSe7qn2gOg`;
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {api(data)});
+
+//   This is a Api data
+function api(data){
+    let information = data;
+    apistore = information;
+    let allobj = Object.keys(information);
+    for(let i = 0 ; i< allobj.length; i++){
+        let value = allobj[i];
+    console.log(button(value));
+}
+}
+
+// This a button function
+function button(x){
+    let button = document.createElement('button');
+    button.type = 'button';
+    button.innerHTML = x;
+    button.className = 'btn btn-dark';
+  
+     
+    
+  
+    // button hendaler
+    button.onclick = function() {
+      
+        // e.preventDefault(x);
+    //    console.log('btn click',apistore[x]);
+      
+    let trnsobj = apistore[x];
+    for(let i = 0 ; i< trnsobj.length; i++){
+        console.log(trnsobj[i]);
+        let datasName = trnsobj[i];
+        // console.log(datasName.);
+
+
+        
+     let Cardparent = document.createElement('secoundparent');
+    Cardparent.innerHTML = `
+
+    <div class="row row-cols-1 row-cols-md-3 d-flex g-4">
+  <div class="col">
+    <div class="card">
+      <img src=${datasName.thumbnail} class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">${datasName.title}</h5>
+        <p class="card-text">${datasName.description}</p>
+      </div>
+    </div>
+  </div>
+    `
+   
+    let mainparent = document.getElementById('display');
+    
+    mainparent.append(Cardparent);
+
+
+    }
+
+    };
+ 
+    var container = document.getElementById('container');
+    container.appendChild(button);
+}
+
+
+
+
+
+    
+
+</script>
+</body>
+</html>
